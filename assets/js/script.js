@@ -223,7 +223,8 @@ var dragTaskHandler = function(event) {
 var dropZoneDragHandler = function(event) {
   var taskListEl = event.target.closest(".task-list");
   if (taskListEl) {
-    event.preventDefault();   
+    event.preventDefault(); 
+    taskListEl.setAttribute("style", "background: rgba(68, 233, 255, 0.7); border-style: dashed;");  
   }
  
 };
@@ -248,10 +249,18 @@ var dropTaskHandler = function(event) {
   else if (statusType === "tasks-completed") {
     statusSelectEl.selectedIndex = 2;
   }
+  dropZoneEl.removeAttribute("style");
   dropZoneEl.appendChild(draggableElement);
 
   };
 
+  //function for style the list task
+  var dragLeaveHandler = function(event) {
+    var taskListEl = event.target.closest(".task-list");
+    if (taskListEl) {
+      taskListEl.removeAttribute("style");
+    }
+  }
 
 
 // submit the task
@@ -271,6 +280,10 @@ pageContentEl.addEventListener("dragover", dropZoneDragHandler);
 
 // define task list the user wants to move the task 
 pageContentEl.addEventListener("drop", dropTaskHandler);
+
+//detect only the list the task moved
+pageContentEl.addEventListener("dragleave", dragLeaveHandler);
+
 
 
 
