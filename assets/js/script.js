@@ -208,27 +208,69 @@ var deleteTask = function(taskId) {
  
 };
 
- //fuction for 
+ //fuction for get the task id 
 
 var dragTaskHandler = function(event) {
   
   var taskId = event.target.getAttribute("data-task-id");
   event.dataTransfer.setData("text/plain", taskId);
   var getId = event.dataTransfer.getData("text/plain");
-  console.log("getId:", getId, typeof getId);
-   
+  console.log("getId:", getId, typeof getId); 
+} ;
 
-} 
+   // fuction for determine the zone for drop
+
+var dropZoneDragHandler = function(event) {
+  var taskListEl = event.target.closest(".task-list");
+  if (taskListEl) {
+    event.preventDefault();   
+  }
+ 
+};
+
+  // function for determine where the user wants to move the task item/changed the task status
+
+var dropTaskHandler = function(event) {
+
+  var id = event.dataTransfer.getData("text/plain");
+  var draggableElement = document.querySelector("[data-task-id='" + id + "']");
+  var dropZoneEl = event.target.closest(".task-list");
+  var statusType = dropZoneEl.id;
+
+  // set status of task based on dropZone id
+  var statusSelectEl = draggableElement.querySelector("select[name='status-change']");
+  if (statusType === "tasks-to-do") {
+    statusSelectEl.selectedIndex = 0;
+  } 
+  else if (statusType === "tasks-in-progress") {
+    statusSelectEl.selectedIndex = 1;
+  } 
+  else if (statusType === "tasks-completed") {
+    statusSelectEl.selectedIndex = 2;
+  }
+  dropZoneEl.appendChild(draggableElement);
+
+  };
+
+
 
 // submit the task
 formEl.addEventListener("submit", taskFormHandler);
 
 // detect event for button dinamic delete,edit and select
 pageContentEl.addEventListener("click", taskButtonHandler);
+
 // detect event for task status
 pageContentEl.addEventListener("change", taskStatusChangeHandler);
+
 //element dragstar
 pageContentEl.addEventListener("dragstart", dragTaskHandler);
+
+// define zone to dragover
+pageContentEl.addEventListener("dragover", dropZoneDragHandler);
+
+// define task list the user wants to move the task 
+pageContentEl.addEventListener("drop", dropTaskHandler);
 
 
 
