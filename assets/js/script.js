@@ -317,6 +317,55 @@ var saveTasks = function() {
   
 };
   
+// Gets task items from localStorage
+//Converts tasks from the stringified format back into an array of objects
+//Iterates through tasks array and creates task elements on the page from it
+
+var loadTasks = function(){
+ var saveReturTask=localStorage.getItem("tasks");
+ //console.log(saveReturTask);
+
+    //localstore is null ,leave the fuction
+ if(!saveReturTask){
+       return false;
+  }
+  saveReturTask = JSON.parse(saveReturTask);
+ 
+  for(var i=0; i < saveReturTask.length; i++){
+
+    //create a elemnt li
+    listItemEl=document.createElement("li");
+    listItemEl.className = "task-item";
+
+    // add task id as a custom attribute
+    listItemEl.setAttribute("data-savereturTask-id", saveReturTask[i].id);
+    listItemEl.setAttribute("draggable", "true");
+    //create a div
+    taskInfoEl=document.createElement("div");
+    taskInfoEl.className="task-info";
+    taskInfoEl.innerHTML = "<h3 class='task-name'>" + saveReturTask[i].name + "</h3><span class='task-type'>" + saveReturTask[i].type + "</span>";
+    listItemEl.appendChild(taskInfoEl);
+
+    var taskActionsEl=createTaskActions(saveReturTask[i].id);
+    listItemEl.appendChild(taskActionsEl);
+    
+    if(saveReturTask[i].status ==="to-do"){
+        listItemEl.querySelector("select[name='status-change']").selectedIndex=0;
+        tasksToDoEl.appendChild(listItemEl);
+    }
+    else if(saveReturTask[i].status ==="in-progress"){ 
+      listItemEl.querySelector("select[name='status-change']").selectedIndex=1;
+      tasksInProgressEl.appendChild(listItemEl);
+     }
+     else if(saveReturTask[i].status=== "completed"){
+      listItemEl.querySelector("select[name='status-change']").selectedIndex=2;
+      tasksCompletedEl.appendChild(listItemEl);
+     }
+     taskIdCounter++;
+     
+  }
+
+};
 
 
 
@@ -340,6 +389,8 @@ pageContentEl.addEventListener("drop", dropTaskHandler);
 
 //detect only the list the task moved
 pageContentEl.addEventListener("dragleave", dragLeaveHandler);
+
+ loadTasks();
 
 
 
