@@ -6,6 +6,14 @@ var pageContentEl = document.querySelector("#page-content"); //create a unique i
 var tasksInProgressEl = document.querySelector("#tasks-in-progress");// to move depend the status
 var tasksCompletedEl = document.querySelector("#tasks-completed");// to move depend the status
 var tasks= localStorage.getItem("tasks");
+ if(tasks){
+  tasks=JSON.parse(tasks);
+}
+else {
+   tasks=[];
+}
+ 
+
 
 
 var taskFormHandler = function(event) {
@@ -322,14 +330,7 @@ var saveTasks = function() {
 //Iterates through tasks array and creates task elements on the page from it
 
 var loadTasks = function(){
- //tasks array with the localStorage information
- //if there is nothing in localStorage, leave function
-  if(!tasks){
-    return false;
-  }
-   // Convert tasks from stringified format back into array of objects
-  tasks=JSON.parse(tasks);
-
+ 
   //loop to own the tasks in your lists according to their status
 
   for(var i=0; i < tasks.length; i++){
