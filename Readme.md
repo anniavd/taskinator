@@ -7,7 +7,7 @@
 # Description
 
 
-Taskinator is a task tracker application where user can create, edit and delete tasks.Tasks go through three different states **To Do ,In Pogress and Completed** with the functionality of drag and drop tasks by the user if desired.
+Taskinator is a task tracker application where user can create, edit and delete tasks.Tasks go through three different states **To Do ,In Pogress** and **Completed** with the functionality of drag and drop tasks by the user if desired.
   
   ![screenshot for home page](/assets/images/homepage.jpg)
 
@@ -23,13 +23,14 @@ Taskinator is a task tracker application where user can create, edit and delete 
 # Usage
  - When the application is running the user can create his tasks and select the type of task (Print, Web and Mobil).
 
--The user can drag and drop the task according to the state in which he wishes to put, as well as edit and delete it.
+- The user can drag and drop the task according to the state in which he wishes to put, as well as edit and delete it.
 
 Image when a user created a task.
 
  ![screenshot the task](/assets/images/task.jpg)
 
  Image when a user going to edit a task.
+ 
   ![Homepage have a red botton for generator password](/assets/images/edit-task.jpg)
 
 # License
