@@ -38,7 +38,8 @@ The license for which the application is covered:
 NONE 
 
 # Technologies 
- - NODE
+ - HTML5
+ - CSS3
 - JAVASCRIPT
 
 
